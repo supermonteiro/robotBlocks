@@ -23,27 +23,31 @@ function createStacks($maxblocks)
 function analyzeLine($currentLine) 
 {
     $instructions = explode(" ", $currentLine);
-    $command = $instructions[0];
-    if (count($instructions) > 1){
-        $from = $instructions[1];
-        $to = $instructions[2];
-        $direction = $instructions[3];
+    if (count($instructions) == 1)
+    {
+        if (is_numeric($instructions[0])) 
+        {
+           $maxBlocks = $instructions[0];
+            createStacks($maxblocks); 
+        }
+        else 
+          outputBlocks();  
     }
-    
-    robotMove($command, $from, $to, $direction);
+        
+    if (count($instructions) > 1)
+    {
+        $command = $instructions[0];
+        $from = $instructions[1];
+        $direction = $instructions[2];
+        $to = $instructions[3];        
+    }
+    if (isMoveValid ($from, $to))
+        robotMove($command, $from, $direction, $to);
 }
 
-function robotMove($command, $from, $to, $direction) 
+function robotMove($command, $from, $direction, $to) 
 {
-    if (is_numeric($command))
-    {
-        $maxBlocks = $command;
-        createStacks($maxblocks);
-    }
-    //moves
     
-    if ($command == "quit")
-        outputBlocks();
 }
 
 function outputBlocks() 
